@@ -1,32 +1,46 @@
-## Step 1
-Select
-<img width="196" height="128" alt="Screenshot 2026-03-11 at 6 11 37 PM" src="https://github.com/user-attachments/assets/3c4c219d-5c2b-4858-9914-68580d5ba08e" />
+# Setting Up a Multi-File Node.js Project with Live Preview
 
-## Step 2
-Select type `Multi File` and template `NodeJS` and click on `Setup initial files`
-<img width="634" height="392" alt="Screenshot 2026-03-11 at 6 21 03 PM" src="https://github.com/user-attachments/assets/016234da-293e-40c0-9f85-4ea619baaed6" />
+## Step 1 — Create a New Question
 
-A new tab will open just the way question will be visible to the candidates.
+Click the **New Question** button to get started.
 
-## Step 3
-Drag and drop folder/files to the vscode, it'll automatically be added to the vscode like this.
-<img width="1275" height="757" alt="Screenshot 2026-03-11 at 6 23 42 PM" src="https://github.com/user-attachments/assets/12d2a97d-25f1-4169-9087-7e93b12499a4" />
+![New Question button](https://github.com/user-attachments/assets/3c4c219d-5c2b-4858-9914-68580d5ba08e)
 
-as you can see I've dragged and dropped the folder `vitejs-vite-gvqtkjas` in the project.
+---
 
-Next to open the preview I'll create one folder `.vscode` with a single file `settings.json` with content:
+## Step 2 — Configure the Question Type
+
+Set the type to **Multi File** and select **NodeJS** as the template, then click **Setup Initial Files**.
+
+![Multi File NodeJS setup](https://github.com/user-attachments/assets/016234da-293e-40c0-9f85-4ea619baaed6)
+
+> A new tab will open showing the candidate's view of the question.
+
+---
+
+## Step 3 — Add Project Files
+
+Drag and drop your project folder (e.g. `vitejs-vite-gvqtkjas`) directly into the VS Code panel. The files will be automatically imported into the workspace.
+
+![Files imported into VS Code](https://github.com/user-attachments/assets/12d2a97d-25f1-4169-9087-7e93b12499a4)
+
+### Enable Live Preview
+
+To enable the live preview pane, add the following two files to your project:
+
+**`.vscode/settings.json`**
 ```json
 {
-    "remote.portsAttributes": {
-      "5173": {
-        "onAutoForward": "openPreview"
-      }
+  "remote.portsAttributes": {
+    "5173": {
+      "onAutoForward": "openPreview"
     }
   }
+}
 ```
 
-and then I'll modify the vite config file `vite.config.ts`.
-```js
+**`vite.config.ts`**
+```ts
 import { defineConfig, Plugin } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
@@ -39,7 +53,6 @@ function codeServerProxy(): Plugin {
     name: 'code-server-proxy-fix',
     configureServer(server) {
       server.middlewares.use((req, _res, next) => {
-        // code-server already stripped /proxy/5173, but Vite expects it
         if (req.url && !req.url.startsWith(PROXY_BASE)) {
           req.url = PROXY_BASE.slice(0, -1) + req.url;
         }
@@ -65,13 +78,27 @@ export default defineConfig({
   },
 });
 ```
-above code is applicable only if code will run on port `5173` (default vite port) we can modify it accordingly.
 
-> **Note**: We should 
-`npm i` before we try to run the project
+> **Note:** The `PROXY_BASE` port (`5173`) matches Vite's default dev server port. Update this value in both files if your project runs on a different port.
 
-## Step 4
-Now if we run the project using `npm run dev` and preview will automatically open in the right pane of vscode.
-<img width="1279" height="760" alt="Screenshot 2026-03-11 at 6 28 52 PM" src="https://github.com/user-attachments/assets/e1ca70f4-874c-4687-bbb0-f36640064c7f" />
+### Install Dependencies
 
-Candidate can modify the placement as per his/her convenience.
+Before running the project, install dependencies:
+
+```bash
+npm i
+```
+
+---
+
+## Step 4 — Run the Project
+
+Start the dev server:
+
+```bash
+npm run dev
+```
+
+The preview will automatically open in the right pane of VS Code. Candidates can rearrange the layout to their preference.
+
+![Live preview in VS Code](https://github.com/user-attachments/assets/e1ca70f4-874c-4687-bbb0-f36640064c7f)
