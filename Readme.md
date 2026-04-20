@@ -99,6 +99,15 @@ Start the dev server:
 npm run dev
 ```
 
+
 The preview will automatically open in the right pane of VS Code. Candidates can rearrange the layout to their preference.
 
 ![Live preview in VS Code](https://github.com/user-attachments/assets/e1ca70f4-874c-4687-bbb0-f36640064c7f)
+
+
+For Developer tools check for this icon:
+<img width="68" height="74" alt="Screenshot 2026-04-20 at 5 10 05 PM" src="https://github.com/user-attachments/assets/f908b72d-c925-4e3d-bcd2-2ab66e4e8d4a" />
+
+You can click and drag it on the page, and upon clicking that you'll toggle the developer tools:
+<img width="1018" height="566" alt="Screenshot 2026-04-20 at 5 11 05 PM" src="https://github.com/user-attachments/assets/1951b62f-b76c-4299-bbe7-9f059afb9619" />
+
